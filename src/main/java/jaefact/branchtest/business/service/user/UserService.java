@@ -1,6 +1,6 @@
-package jaefact.branchtest.business.service;
+package jaefact.branchtest.business.service.user;
 
-import jaefact.branchtest.business.domain.user.UserRepository;
+import jaefact.branchtest.business.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

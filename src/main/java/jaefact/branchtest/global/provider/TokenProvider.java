@@ -53,10 +53,8 @@ public class TokenProvider {
                 .compact();
     }
 
-
     public Authentication getAuthentication(String token){
         //token = token.substring(6).trim();
-
         UserDetails user= userDetailsService.loadUserByUsername(getUserId(token));
 
         if(user == null){
@@ -66,19 +64,15 @@ public class TokenProvider {
         return new UsernamePasswordAuthenticationToken(user,"",user.getAuthorities());
     }
 
-
-
     //토큰을 복호화 하고 body에 저장된 유저 id 를 꺼낸다
     public String getUserId(String token){
         // token = token.substring(6).trim();
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-
     public String resolveToken(HttpServletRequest req){
         return req.getHeader(HttpHeaders.AUTHORIZATION);
     }
-
 
     public boolean validateToken(String token){
         Jws<Claims> claimsJwt = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);

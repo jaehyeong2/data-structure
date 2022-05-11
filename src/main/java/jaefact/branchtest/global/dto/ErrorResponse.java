@@ -1,7 +1,5 @@
 package jaefact.branchtest.global.dto;
 
-import com.gogofnd.kb.global.dto.response.CE;
-import com.gogofnd.kb.global.error.model.ErrorCode;
 import jaefact.branchtest.global.dto.response.CE;
 import jaefact.branchtest.global.error.model.ErrorCode;
 import lombok.AccessLevel;
