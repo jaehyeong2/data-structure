@@ -17,4 +17,8 @@ public class Seller extends BaseTimeEntity {
     @Column(name ="seller_id")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
+    private String location;
 }
