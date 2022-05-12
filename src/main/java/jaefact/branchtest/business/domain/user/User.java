@@ -2,6 +2,7 @@ package jaefact.branchtest.business.domain.user;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
 import jaefact.branchtest.business.domain.seller.Seller;
+import jaefact.branchtest.business.dto.user.UserDto;
 import lombok.*;
 import org.apache.tomcat.jni.Local;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,6 +49,15 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Builder
+    public static User create(UserDto dto){
+        return builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .carNumber(dto.getCarNumber())
+                .phone(dto.getPhone())
+                .build();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
