@@ -1,7 +1,7 @@
 package jaefact.branchtest.business.domain.insurance;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
-import jaefact.branchtest.business.domain.user.User;
+import jaefact.branchtest.business.domain.rider.Rider;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class InsuranceHistory extends BaseTimeEntity {
 
     @JoinColumn(name ="user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private Rider rider;
 
     private String result;
     private String reason;

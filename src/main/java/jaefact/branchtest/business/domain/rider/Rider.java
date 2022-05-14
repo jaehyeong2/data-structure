@@ -1,15 +1,13 @@
-package jaefact.branchtest.business.domain.user;
+package jaefact.branchtest.business.domain.rider;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
 import jaefact.branchtest.business.domain.seller.Seller;
-import jaefact.branchtest.business.dto.user.UserDto;
+import jaefact.branchtest.business.dto.user.RiderDto;
 import lombok.*;
-import org.apache.tomcat.jni.Local;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Builder
@@ -17,7 +15,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Getter
 @Entity
-public class User extends BaseTimeEntity implements UserDetails {
+public class Rider extends BaseTimeEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +48,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Gender gender;
 
     @Builder
-    public static User create(UserDto dto){
+    public static Rider create(RiderDto dto){
         return builder()
                 .name(dto.getName())
                 .email(dto.getEmail())

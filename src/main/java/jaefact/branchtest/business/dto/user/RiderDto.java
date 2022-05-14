@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class RiderDto {
     private String name;
     private String username;
     private String phone;

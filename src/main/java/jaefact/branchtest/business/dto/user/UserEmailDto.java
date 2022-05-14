@@ -1,6 +1,6 @@
 package jaefact.branchtest.business.dto.user;
 
-import jaefact.branchtest.business.domain.user.User;
+import jaefact.branchtest.business.domain.rider.Rider;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +12,8 @@ public class UserEmailDto {
     private String email;
     private String name;
 
-    public UserEmailDto(User user) {
-        this.email = user.getEmail();
-        this.name = user.getName();
+    public UserEmailDto(Rider rider) {
+        this.email = rider.getEmail();
+        this.name = rider.getName();
     }
 }

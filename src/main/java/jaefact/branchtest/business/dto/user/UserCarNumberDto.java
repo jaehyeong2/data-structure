@@ -1,6 +1,6 @@
 package jaefact.branchtest.business.dto.user;
 
-import jaefact.branchtest.business.domain.user.User;
+import jaefact.branchtest.business.domain.rider.Rider;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +12,8 @@ public class UserCarNumberDto {
     private String carNumber;
     private String name;
 
-    public UserCarNumberDto(User user) {
-        this.carNumber = user.getCarNumber();
-        this.name = user.getName();
+    public UserCarNumberDto(Rider rider) {
+        this.carNumber = rider.getCarNumber();
+        this.name = rider.getName();
     }
 }

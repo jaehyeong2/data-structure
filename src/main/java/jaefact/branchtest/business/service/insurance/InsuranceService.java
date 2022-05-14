@@ -2,7 +2,6 @@ package jaefact.branchtest.business.service.insurance;
 
 
 import jaefact.branchtest.business.domain.insurance.InsuranceHistory;
-import jaefact.branchtest.business.domain.user.User;
 import jaefact.branchtest.business.repository.insurance.HistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

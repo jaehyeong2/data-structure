@@ -2,7 +2,6 @@ package jaefact.branchtest.business.service.seller;
 
 
 import jaefact.branchtest.business.domain.seller.Seller;
-import jaefact.branchtest.business.domain.user.User;
 import jaefact.branchtest.business.repository.seller.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
