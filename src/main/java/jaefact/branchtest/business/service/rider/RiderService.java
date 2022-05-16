@@ -6,6 +6,8 @@ import jaefact.branchtest.business.dto.rider.RiderSaveReq;
 import jaefact.branchtest.business.repository.rider.RiderRepository;
 import jaefact.branchtest.business.repository.rider.RiderRepositorySupport;
 import jaefact.branchtest.business.repository.seller.SellerRepository;
+import jaefact.branchtest.global.error.exception.BusinessException;
+import jaefact.branchtest.global.error.model.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,8 +53,9 @@ public class RiderService {
         Seller seller = sellerRepository.findById(dto.getSeller_id()).orElseThrow(() -> {
             throw new NoSuchElementException("조회 실패");
         });
-
-        String encodeSsn = ssnEncode(dto.getSsn());
+        String ssn = dto.getSsn();
+        ssnCheck(ssn);
+        String encodeSsn = ssnEncode(ssn);
 
         Rider rider = Rider.create(seller, dto,encodeSsn);
         riderRepository.save(rider);
@@ -76,6 +79,23 @@ public class RiderService {
         AES_Encryption aes = new AES_Encryption();
         String decrypt = aes.decrypt(ssn);
         return decrypt;
+    }
+
+    public void ssnCheck(String number){
+        hyphenCheck(number);
+        ssnLengthCheck(number);
+    }
+
+    private void hyphenCheck(String number) {
+        if (number.contains("-") || (!number.matches("[+-]?\\d*(\\.\\d+)?"))){
+            throw new BusinessException(ErrorCode.INVALID_TYPE_VALUE2);
+        }
+    }
+
+    private void ssnLengthCheck(String number) {
+        if (number.length() != 13) {
+            throw new BusinessException(ErrorCode.INVALID_LENGTH_VALUE);
+        }
     }
 
 

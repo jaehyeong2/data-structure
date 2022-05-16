@@ -6,6 +6,8 @@ public enum ErrorCode {
     ENTITY_NOT_FOUND(400, "C003", "해당 엔티티를 찾을 수가 없습니다."),
     INTERNAL_SERVER_ERROR(500, "C004", "알 수 없는 에러 (서버 에러)"),
     INVALID_TYPE_VALUE(400, "C005", "타입이 올바르지 않습니다."),
+    INVALID_TYPE_VALUE2(400, "C006", "숫자외의 문자를 지원하지 않습니다."),
+    INVALID_LENGTH_VALUE(400,"COO7","길이가 알맞지 않습니다"),
     HANDLE_ACCESS_DENIED(403, "C006", "권한이 없습니다."),
     HANDLE_INVALID_TOKEN(401, "C007", "토큰이 없거나 올바르지 않습니다."),
 
