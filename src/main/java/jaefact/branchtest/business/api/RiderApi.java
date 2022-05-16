@@ -44,7 +44,7 @@ public class RiderApi {
     }
 
     @PostMapping("")
-    public ApiRes<Long> save(@RequestBody RiderSaveReq dto){
+    public ApiRes<Long> save(@RequestBody RiderSaveReq dto) throws Exception {
         return new ApiRes<>(riderService.save(dto));
     }
 

@@ -49,14 +49,14 @@ public class Rider extends BaseTimeEntity implements UserDetails {
     private Gender gender;
 
     @Builder
-    public static Rider create(Seller seller, RiderSaveReq dto){
+    public static Rider create(Seller seller, RiderSaveReq dto,String ssn){
         return builder()
                 .seller(seller)
                 .name(dto.getName())
                 .username(dto.getUsername())
                 .gender(dto.getGender())
                 .email(dto.getEmail())
-                .ssn(dto.getSsn())
+                .ssn(ssn)
                 .carNumber(dto.getCarNumber())
                 .phone(dto.getPhone())
                 .build();

@@ -47,12 +47,14 @@ public class RiderService {
 
     //회원가입
     @Transactional
-    public Long save(RiderSaveReq dto){
+    public Long save(RiderSaveReq dto) throws Exception {
         Seller seller = sellerRepository.findById(dto.getSeller_id()).orElseThrow(() -> {
             throw new NoSuchElementException("조회 실패");
         });
 
-        Rider rider = Rider.create(seller, dto);
+        String encodeSsn = ssnEncode(dto.getSsn());
+
+        Rider rider = Rider.create(seller, dto,encodeSsn);
         riderRepository.save(rider);
         return rider.getId();
     }
@@ -63,6 +65,18 @@ public class RiderService {
         return id;
     }
 
+
+    private String ssnEncode(String ssn) throws Exception {
+        AES_Encryption aes = new AES_Encryption();
+        String encrypt = aes.encrypt(ssn);
+        return encrypt;
+    }
+
+    private String ssnDecode(String ssn) throws Exception {
+        AES_Encryption aes = new AES_Encryption();
+        String decrypt = aes.decrypt(ssn);
+        return decrypt;
+    }
 
 
 
