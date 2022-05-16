@@ -1,4 +1,4 @@
-package jaefact.branchtest.business.dto.user;
+package jaefact.branchtest.business.dto.rider;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

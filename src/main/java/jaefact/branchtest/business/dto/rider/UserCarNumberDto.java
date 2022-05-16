@@ -1,4 +1,4 @@
-package jaefact.branchtest.business.dto.user;
+package jaefact.branchtest.business.dto.rider;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import lombok.AllArgsConstructor;
@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserPhoneDto {
-    private String phone;
+public class UserCarNumberDto {
+    private String carNumber;
     private String name;
 
-    public UserPhoneDto(Rider rider) {
-        this.phone = rider.getPhone();
+    public UserCarNumberDto(Rider rider) {
+        this.carNumber = rider.getCarNumber();
         this.name = rider.getName();
     }
 }

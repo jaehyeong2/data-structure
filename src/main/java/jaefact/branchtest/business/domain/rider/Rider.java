@@ -2,7 +2,8 @@ package jaefact.branchtest.business.domain.rider;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
 import jaefact.branchtest.business.domain.seller.Seller;
-import jaefact.branchtest.business.dto.user.RiderDto;
+import jaefact.branchtest.business.dto.rider.RiderDto;
+import jaefact.branchtest.business.dto.rider.RiderSaveReq;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,7 @@ public class Rider extends BaseTimeEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String user_id; // 숫자 영대문자 혼합으로 10글자 이하
+    private String driver_id; // 숫자 영대문자 혼합으로 10글자 이하
 
     @JoinColumn(name = "seller_id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,10 +49,14 @@ public class Rider extends BaseTimeEntity implements UserDetails {
     private Gender gender;
 
     @Builder
-    public static Rider create(RiderDto dto){
+    public static Rider create(Seller seller, RiderSaveReq dto){
         return builder()
+                .seller(seller)
                 .name(dto.getName())
+                .username(dto.getUsername())
+                .gender(dto.getGender())
                 .email(dto.getEmail())
+                .ssn(dto.getSsn())
                 .carNumber(dto.getCarNumber())
                 .phone(dto.getPhone())
                 .build();

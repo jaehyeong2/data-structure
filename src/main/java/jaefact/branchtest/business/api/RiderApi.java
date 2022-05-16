@@ -2,19 +2,20 @@ package jaefact.branchtest.business.api;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import jaefact.branchtest.business.dto.ApiRes;
-import jaefact.branchtest.business.dto.user.UserCarNumberDto;
-import jaefact.branchtest.business.dto.user.UserEmailDto;
-import jaefact.branchtest.business.dto.user.UserPhoneDto;
-import jaefact.branchtest.business.service.user.RiderService;
+import jaefact.branchtest.business.dto.rider.RiderSaveReq;
+import jaefact.branchtest.business.dto.rider.UserCarNumberDto;
+import jaefact.branchtest.business.dto.rider.UserEmailDto;
+import jaefact.branchtest.business.dto.rider.UserPhoneDto;
+import jaefact.branchtest.business.service.rider.RiderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/users")
+@RequestMapping("/riders")
 @RequiredArgsConstructor
 @RestController
-public class UserApi {
+public class RiderApi {
     private final RiderService riderService;
 
     @GetMapping("/{id}")
@@ -42,9 +43,9 @@ public class UserApi {
         return new ApiRes<>(riderService.getUserList());
     }
 
-    @PostMapping("/{id}")
-    public ApiRes<Long> save(Rider rider){
-        return new ApiRes<>(riderService.save(rider));
+    @PostMapping("")
+    public ApiRes<Long> save(@RequestBody RiderSaveReq dto){
+        return new ApiRes<>(riderService.save(dto));
     }
 
     @DeleteMapping("/{id}")

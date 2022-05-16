@@ -1,4 +1,4 @@
-package jaefact.branchtest.business.repository.user;
+package jaefact.branchtest.business.repository.rider;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import org.springframework.data.jpa.repository.JpaRepository;

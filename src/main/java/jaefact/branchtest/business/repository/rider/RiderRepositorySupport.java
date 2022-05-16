@@ -1,7 +1,6 @@
-package jaefact.branchtest.business.repository.user;
+package jaefact.branchtest.business.repository.rider;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import static jaefact.branchtest.business.domain.rider.QRider.rider;
 
 import jaefact.branchtest.business.domain.rider.QRider;
 import jaefact.branchtest.business.domain.rider.Rider;

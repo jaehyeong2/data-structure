@@ -1,7 +1,7 @@
 package jaefact.branchtest.global.config;
 
 import jaefact.branchtest.business.domain.rider.Rider;
-import jaefact.branchtest.business.repository.user.RiderRepository;
+import jaefact.branchtest.business.repository.rider.RiderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

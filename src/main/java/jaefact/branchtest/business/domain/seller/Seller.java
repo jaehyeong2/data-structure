@@ -1,13 +1,11 @@
 package jaefact.branchtest.business.domain.seller;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jaefact.branchtest.business.dto.seller.SellerDto;
+import lombok.*;
 
 import javax.persistence.*;
-
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -21,4 +19,14 @@ public class Seller extends BaseTimeEntity {
     private String name;
 
     private String location;
+
+    private String tell;
+
+    public static Seller create(SellerDto dto){
+        return new Seller().builder()
+                .name(dto.getName())
+                .location(dto.getLocation())
+                .tell(dto.getTell())
+                .build();
+    }
 }

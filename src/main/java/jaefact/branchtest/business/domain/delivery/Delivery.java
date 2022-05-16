@@ -2,10 +2,8 @@ package jaefact.branchtest.business.domain.delivery;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
 import jaefact.branchtest.business.domain.rider.Rider;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jaefact.branchtest.business.dto.delivery.DeliveryDto;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,4 +28,22 @@ public class Delivery extends BaseTimeEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    @Builder
+    public Delivery(Rider rider, String pickUpAddress, String deliveryAddress, LocalDateTime startTime, LocalDateTime endTime) {
+        this.rider = rider;
+        this.pickUpAddress = pickUpAddress;
+        this.deliveryAddress = deliveryAddress;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public static Delivery create(DeliveryDto dto,Rider rider){
+        return new Delivery().builder()
+                .pickUpAddress(dto.getPickUpAddress())
+                .deliveryAddress(dto.getDeliveryAddress())
+                .startTime(dto.getStartTime())
+                .endTime(dto.getEndTime())
+                .rider(rider)
+                .build();
+    }
 }
