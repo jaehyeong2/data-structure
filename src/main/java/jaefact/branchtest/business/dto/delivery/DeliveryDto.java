@@ -11,9 +11,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeliveryDto {
+    private Long rider_id;
+
     private String pickUpAddress;
     private String deliveryAddress;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    public DeliveryDto(Delivery delivery) {
+        this.rider_id = delivery.getRider().getId();
+        this.pickUpAddress = delivery.getPickUpAddress();
+        this.deliveryAddress = delivery.getDeliveryAddress();
+     }
 }

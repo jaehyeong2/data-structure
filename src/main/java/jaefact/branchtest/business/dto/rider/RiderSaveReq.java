@@ -16,6 +16,7 @@ public class RiderSaveReq {
     private String carNumber;
     private String ssn;
     private Gender gender;
+    private String password;
 
     private Long seller_id;
 }

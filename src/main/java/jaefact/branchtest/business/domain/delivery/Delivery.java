@@ -8,7 +8,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -41,8 +40,7 @@ public class Delivery extends BaseTimeEntity {
         return new Delivery().builder()
                 .pickUpAddress(dto.getPickUpAddress())
                 .deliveryAddress(dto.getDeliveryAddress())
-                .startTime(dto.getStartTime())
-                .endTime(dto.getEndTime())
+                .startTime(LocalDateTime.now())
                 .rider(rider)
                 .build();
     }

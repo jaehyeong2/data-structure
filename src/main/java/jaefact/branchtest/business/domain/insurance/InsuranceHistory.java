@@ -2,14 +2,11 @@ package jaefact.branchtest.business.domain.insurance;
 
 import jaefact.branchtest.business.domain.BaseTimeEntity;
 import jaefact.branchtest.business.domain.rider.Rider;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jaefact.branchtest.business.dto.insurance.InsuranceHistoryDto;
+import lombok.*;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -26,4 +23,20 @@ public class InsuranceHistory extends BaseTimeEntity {
     private String result;
     private String reason;
     private Integer until;
+
+    @Builder
+    public InsuranceHistory(Rider rider, String result, String reason, Integer until) {
+        this.rider = rider;
+        this.result = result;
+        this.reason = reason;
+        this.until = until;
+    }
+
+    public static InsuranceHistory create(InsuranceHistoryDto dto,Rider rider){
+        return new InsuranceHistory().builder()
+                .result(dto.getResult())
+                .reason(dto.getReason())
+                .until(dto.getUntil())
+                .build();
+    }
 }

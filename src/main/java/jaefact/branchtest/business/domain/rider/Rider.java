@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -49,9 +47,25 @@ public class Rider extends BaseTimeEntity implements UserDetails {
     private Gender gender;
 
     @Builder
-    public static Rider create(Seller seller, RiderSaveReq dto,String ssn){
+    public Rider(String driver_id, Seller seller, String ssn, String carNumber, String name, String username, String password, String email, String phone, ActStatus actStatus, String insuranceStatus, Gender gender) {
+        this.driver_id = driver_id;
+        this.seller = seller;
+        this.ssn = ssn;
+        this.carNumber = carNumber;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.actStatus = actStatus;
+        this.insuranceStatus = insuranceStatus;
+        this.gender = gender;
+    }
+
+    public static Rider create(Seller seller, RiderSaveReq dto, String ssn, String password){
         return builder()
                 .seller(seller)
+                .password(password)
                 .name(dto.getName())
                 .username(dto.getUsername())
                 .gender(dto.getGender())
@@ -61,6 +75,10 @@ public class Rider extends BaseTimeEntity implements UserDetails {
                 .phone(dto.getPhone())
                 .actStatus(ActStatus.ACT)
                 .build();
+    }
+
+    public void updateDriver_id(String driver_id) {
+        this.driver_id = driver_id;
     }
 
     @Override

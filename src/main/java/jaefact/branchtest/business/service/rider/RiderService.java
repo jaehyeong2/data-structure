@@ -10,11 +10,13 @@ import jaefact.branchtest.business.repository.seller.SellerRepository;
 import jaefact.branchtest.global.error.exception.BusinessException;
 import jaefact.branchtest.global.error.model.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
@@ -25,6 +27,7 @@ public class RiderService {
     private final RiderRepository riderRepository;
     private final RiderRepositorySupport userRepositorySupport;
     private final SellerRepository sellerRepository;
+    private final PasswordEncoder encoder;
 
     public RiderDto getRider(Long id){
         Rider rider = riderRepository.findById(id).orElseThrow(() -> {
@@ -60,9 +63,13 @@ public class RiderService {
         });
         String ssn = dto.getSsn();
         ssnCheck(ssn);
-        String encodeSsn = ssnEncode(ssn);
 
-        Rider rider = Rider.create(seller, dto,encodeSsn);
+        String encodeSsn = ssnEncode(ssn);
+        String rawPassword = dto.getPassword();
+        String encode = encoder.encode(rawPassword);
+
+        Rider rider = Rider.create(seller, dto,encodeSsn,encode);
+        rider.updateDriver_id(createDriverId());
         riderRepository.save(rider);
         return rider.getId();
     }
@@ -104,5 +111,18 @@ public class RiderService {
     }
 
 
+    public String createDriverId(){
+        String number = "";
+        int random = new Random().nextInt(10);
+        for( int i = 0; i<random; i++) {
+            number = number + Character.toString((char)((Math.random() * 26)+65))
+                    + Character.toString((char)((Math.random() * 26)+97))
+                    + Character.toString((char)((Math.random() * 10)+48));
+        }
 
+        if(number.length() > 10){
+            number = number.substring(0,10);
+        }
+        return number;
+    }
 }
