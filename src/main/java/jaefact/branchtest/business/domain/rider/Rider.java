@@ -59,6 +59,7 @@ public class Rider extends BaseTimeEntity implements UserDetails {
                 .ssn(ssn)
                 .carNumber(dto.getCarNumber())
                 .phone(dto.getPhone())
+                .actStatus(ActStatus.ACT)
                 .build();
     }
 

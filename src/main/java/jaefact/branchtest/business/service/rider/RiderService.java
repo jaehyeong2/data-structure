@@ -2,6 +2,7 @@ package jaefact.branchtest.business.service.rider;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import jaefact.branchtest.business.domain.seller.Seller;
+import jaefact.branchtest.business.dto.rider.RiderDto;
 import jaefact.branchtest.business.dto.rider.RiderSaveReq;
 import jaefact.branchtest.business.repository.rider.RiderRepository;
 import jaefact.branchtest.business.repository.rider.RiderRepositorySupport;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -24,10 +26,11 @@ public class RiderService {
     private final RiderRepositorySupport userRepositorySupport;
     private final SellerRepository sellerRepository;
 
-    public Rider getUser(Long id){
-        return riderRepository.findById(id).orElseThrow(() ->{
+    public RiderDto getRider(Long id){
+        Rider rider = riderRepository.findById(id).orElseThrow(() -> {
             throw new NoSuchElementException("조회실패");
         });
+        return new RiderDto(rider);
     }
 
     public Rider getUserByEmail(String email){
@@ -42,8 +45,10 @@ public class RiderService {
         return userRepositorySupport.findByCarNumber(carNumber);
     }
 
-    public List<Rider> getUserList(){
-        return riderRepository.findAll();
+    public List<RiderDto> getRiders(){
+        List<Rider> riders = riderRepository.findAll();
+        List<RiderDto> dtoList = riders.stream().map(r -> new RiderDto(r)).collect(Collectors.toList());
+        return dtoList;
     }
 
 

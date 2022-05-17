@@ -2,10 +2,7 @@ package jaefact.branchtest.business.api;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import jaefact.branchtest.business.dto.ApiRes;
-import jaefact.branchtest.business.dto.rider.RiderSaveReq;
-import jaefact.branchtest.business.dto.rider.UserCarNumberDto;
-import jaefact.branchtest.business.dto.rider.UserEmailDto;
-import jaefact.branchtest.business.dto.rider.UserPhoneDto;
+import jaefact.branchtest.business.dto.rider.*;
 import jaefact.branchtest.business.service.rider.RiderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +16,8 @@ public class RiderApi {
     private final RiderService riderService;
 
     @GetMapping("/{id}")
-    public ApiRes<Rider> get(@PathVariable Long id){
-        return new ApiRes<>(riderService.getUser(id));
+    public ApiRes<RiderDto> get(@PathVariable Long id){
+        return new ApiRes<>(riderService.getRider(id));
     }
 
     @GetMapping("/search/email")
@@ -39,8 +36,8 @@ public class RiderApi {
     }
 
     @GetMapping("")
-    public ApiRes<List<Rider>> getList(){
-        return new ApiRes<>(riderService.getUserList());
+    public ApiRes<List<RiderDto>> getList(){
+        return new ApiRes<>(riderService.getRiders());
     }
 
     @PostMapping("")
