@@ -9,7 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -45,6 +47,14 @@ public class Rider extends BaseTimeEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "rider_roles",
+            joinColumns = @JoinColumn(name="driver_id")
+    )
+    private final List<String> roles = new ArrayList<>();
+
 
     @Builder
     public Rider(String driver_id, Seller seller, String ssn, String carNumber, String name, String username, String password, String email, String phone, ActStatus actStatus, String insuranceStatus, Gender gender) {

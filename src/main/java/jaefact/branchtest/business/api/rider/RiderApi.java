@@ -1,4 +1,4 @@
-package jaefact.branchtest.business.api;
+package jaefact.branchtest.business.api.rider;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import jaefact.branchtest.business.dto.ApiRes;
@@ -38,11 +38,6 @@ public class RiderApi {
     @GetMapping("")
     public ApiRes<List<RiderDto>> getList(){
         return new ApiRes<>(riderService.getRiders());
-    }
-
-    @PostMapping("")
-    public ApiRes<Long> save(@RequestBody RiderSaveReq dto) throws Exception {
-        return new ApiRes<>(riderService.save(dto));
     }
 
     @DeleteMapping("/{id}")

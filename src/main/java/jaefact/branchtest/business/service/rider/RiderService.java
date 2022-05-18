@@ -2,18 +2,22 @@ package jaefact.branchtest.business.service.rider;
 
 import jaefact.branchtest.business.domain.rider.Rider;
 import jaefact.branchtest.business.domain.seller.Seller;
+import jaefact.branchtest.business.dto.rider.LoginDto;
 import jaefact.branchtest.business.dto.rider.RiderDto;
 import jaefact.branchtest.business.dto.rider.RiderSaveReq;
+import jaefact.branchtest.business.dto.rider.TokenAndRider;
 import jaefact.branchtest.business.repository.rider.RiderRepository;
 import jaefact.branchtest.business.repository.rider.RiderRepositorySupport;
 import jaefact.branchtest.business.repository.seller.SellerRepository;
 import jaefact.branchtest.global.error.exception.BusinessException;
 import jaefact.branchtest.global.error.model.ErrorCode;
+import jaefact.branchtest.global.provider.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -28,6 +32,8 @@ public class RiderService {
     private final RiderRepositorySupport userRepositorySupport;
     private final SellerRepository sellerRepository;
     private final PasswordEncoder encoder;
+    private final TokenProvider tokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     public RiderDto getRider(Long id){
         Rider rider = riderRepository.findById(id).orElseThrow(() -> {
@@ -57,7 +63,7 @@ public class RiderService {
 
     //회원가입
     @Transactional
-    public Long save(RiderSaveReq dto) throws Exception {
+    public String save(RiderSaveReq dto) throws Exception {
         Seller seller = sellerRepository.findById(dto.getSeller_id()).orElseThrow(() -> {
             throw new NoSuchElementException("조회 실패");
         });
@@ -71,13 +77,41 @@ public class RiderService {
         Rider rider = Rider.create(seller, dto,encodeSsn,encode);
         rider.updateDriver_id(createDriverId());
         riderRepository.save(rider);
-        return rider.getId();
+        return "ok";
     }
+
+    @Transactional(readOnly = true)
+    public TokenAndRider login(LoginDto dto, HttpServletResponse res){
+        Rider rider = findByPhone(dto.getPhone());
+        matchPassword(dto.getPassword(),rider.getPassword());
+        String token = createToken(rider);
+        res.setHeader("Authorization",token);
+        return new TokenAndRider(rider,token);
+    }
+
+    public Rider findByPhone(String phone){
+        return riderRepository.findByPhone(phone).orElseThrow(() ->{
+            throw new NoSuchElementException("조회 실패");
+        });
+    }
+
 
     @Transactional
     public Long delete(Long id){
         riderRepository.deleteById(id);
         return id;
+    }
+
+    public String createToken(Rider rider){
+        return tokenProvider.createToken(String.valueOf(rider.getId()),rider.getRoles());
+    }
+
+    public void matchPassword(String reqPassword, String userPassword){
+        boolean matches = passwordEncoder.matches(reqPassword, userPassword);
+
+        if(matches != true){
+            throw new BusinessException(ErrorCode.NOT_MATCH_PASSWORD);
+        }
     }
 
 

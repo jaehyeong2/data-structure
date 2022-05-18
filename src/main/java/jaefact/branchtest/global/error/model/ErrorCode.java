@@ -10,6 +10,7 @@ public enum ErrorCode {
     INVALID_LENGTH_VALUE(400,"COO7","길이가 알맞지 않습니다"),
     HANDLE_ACCESS_DENIED(403, "C006", "권한이 없습니다."),
     HANDLE_INVALID_TOKEN(401, "C007", "토큰이 없거나 올바르지 않습니다."),
+    NOT_MATCH_PASSWORD(401,"C008","패스워드가 일치하지 않습니다"),
 
     DRIVER_ERROR(509,"D001","보험이 유효하지 않습니다."),
     NOT_FOUND_USER(509, "L007", "존재하지 않는 회원입니다.."),
